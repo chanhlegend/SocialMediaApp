@@ -3,8 +3,8 @@ Frontend/node_modules/
 Backend/node_modules/
 
 # Ignore môi trường
-Frontend/.env
-Backend/.env
+Frontend/src/.env
+Backend/src/.env
 
 # Ignore build (nếu có)
 Frontend/dist/
