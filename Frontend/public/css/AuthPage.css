@@ -1,0 +1,379 @@
+/* Smooth form transitions */
+.form-transition {
+  transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.form-slide-in {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.form-slide-out {
+  transform: translateX(100%);
+  opacity: 0;
+}
+
+.form-slide-out-left {
+  transform: translateX(-100%);
+  opacity: 0;
+}
+
+/* Title animation */
+.title-container {
+  position: relative;
+  height: 4.5rem;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.5rem;
+}
+
+.title-slide {
+  transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  line-height: 1.2;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .title-container {
+    height: 3.5rem;
+    margin-bottom: 0.25rem;
+  }
+  
+  .title-slide {
+    font-size: 1.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .title-container {
+    height: 3rem;
+  }
+  
+  .title-slide {
+    font-size: 1.5rem;
+  }
+}
+
+.title-slide-in {
+  transform: translateY(-50%);
+  opacity: 1;
+}
+
+.title-slide-out-up {
+  transform: translateY(-150%);
+  opacity: 0;
+}
+
+.title-slide-out-down {
+  transform: translateY(50%);
+  opacity: 0;
+}
+
+/* Enhanced hover effects */
+.glass-hover {
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-hover:hover {
+  backdrop-filter: blur(20px);
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 768px) {
+  .glass-hover:hover {
+    transform: translateY(-1px) scale(1.01);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  }
+}
+
+@media (max-width: 480px) {
+  .glass-hover:hover {
+    transform: none;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+  }
+}
+
+/* Input focus animations */
+.input-focus {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.input-focus:focus {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 25px rgba(236, 72, 153, 0.3);
+}
+
+/* Mobile input adjustments */
+@media (max-width: 768px) {
+  .input-focus:focus {
+    transform: translateY(-0.5px);
+    box-shadow: 0 5px 15px rgba(236, 72, 153, 0.2);
+  }
+}
+
+@media (max-width: 480px) {
+  .input-focus:focus {
+    transform: none;
+    box-shadow: 0 3px 10px rgba(236, 72, 153, 0.15);
+  }
+}
+
+/* Button pulse effect */
+.btn-pulse {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-pulse::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.btn-pulse:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+/* Floating animation for background elements */
+@keyframes float-slow {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-15px) rotate(1deg);
+  }
+  50% {
+    transform: translateY(-5px) rotate(-1deg);
+  }
+  75% {
+    transform: translateY(-10px) rotate(0.5deg);
+  }
+}
+
+.float-slow {
+  animation: float-slow 8s ease-in-out infinite;
+}
+
+/* Gradient text animation */
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.gradient-animate {
+  background-size: 200% 200%;
+  animation: gradient-shift 3s ease infinite;
+}
+
+/* Mobile responsive container adjustments */
+@media (max-width: 768px) {
+  .backdrop-blur-xl {
+    backdrop-filter: blur(10px);
+  }
+  
+  .rounded-3xl {
+    border-radius: 1.5rem;
+  }
+  
+  .p-8 {
+    padding: 1.5rem;
+  }
+  
+  /* Hide some background elements on mobile for better performance */
+  .absolute.top-20.left-20,
+  .absolute.top-40.right-32,
+  .absolute.bottom-32.left-1\/3,
+  .absolute.bottom-20.right-20 {
+    display: none;
+  }
+  
+  /* Reduce floating shapes on mobile */
+  .absolute.top-1\/4.left-1\/4,
+  .absolute.top-3\/4.right-1\/4,
+  .absolute.top-1\/2.left-1\/6,
+  .absolute.bottom-1\/3.right-1\/3 {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .backdrop-blur-xl {
+    backdrop-filter: blur(8px);
+  }
+  
+  .rounded-3xl {
+    border-radius: 1rem;
+  }
+  
+  .p-8 {
+    padding: 1rem;
+  }
+  
+  .max-w-md {
+    max-width: 100%;
+    margin: 0 0.5rem;
+  }
+  
+  /* Further reduce animations on small screens */
+  .animate-pulse {
+    animation: none;
+  }
+  
+  .animate-float {
+    animation: none;
+  }
+  
+  /* Touch-friendly button sizes */
+  button, input, a {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Improve touch targets */
+  .text-pink-300 {
+    padding: 0.5rem;
+    margin: -0.5rem;
+  }
+}
+
+/* Liquid Loader Animation */
+.liquid-loader {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #ffeaa7);
+  background-size: 400% 400%;
+  animation: liquid-gradient 2s ease infinite, liquid-morph 1.5s ease-in-out infinite;
+}
+
+.liquid-loader::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 60%;
+  height: 60%;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: liquid-bubble 1.2s ease-in-out infinite;
+}
+
+/* Purple-Pink themed Liquid Loader for buttons */
+.liquid-loader-lg {
+  width: 24px;
+  height: 24px;
+  background: linear-gradient(45deg, #8b5cf6, #ec4899, #f97316, #06b6d4, #10b981);
+  background-size: 300% 300%;
+  animation: liquid-gradient-button 1.8s ease infinite, liquid-morph-button 1.2s ease-in-out infinite;
+}
+
+.liquid-loader-lg::before {
+  width: 50%;
+  height: 50%;
+  background: rgba(255, 255, 255, 0.4);
+  animation: liquid-bubble-button 1s ease-in-out infinite;
+}
+
+@keyframes liquid-gradient {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes liquid-gradient-button {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  33% {
+    background-position: 100% 0%;
+  }
+  66% {
+    background-position: 0% 100%;
+  }
+}
+
+@keyframes liquid-morph {
+  0%, 100% {
+    border-radius: 50%;
+    transform: scale(1);
+  }
+  25% {
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    transform: scale(1.1);
+  }
+  50% {
+    border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+    transform: scale(0.9);
+  }
+  75% {
+    border-radius: 40% 30% 60% 70% / 40% 70% 60% 50%;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes liquid-morph-button {
+  0%, 100% {
+    border-radius: 50%;
+    transform: scale(1);
+  }
+  33% {
+    border-radius: 60% 40% 50% 60% / 70% 50% 60% 40%;
+    transform: scale(1.15);
+  }
+  66% {
+    border-radius: 40% 60% 40% 60% / 50% 70% 40% 60%;
+    transform: scale(0.85);
+  }
+}
+
+@keyframes liquid-bubble {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.7;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.3);
+    opacity: 0.3;
+  }
+}
+
+@keyframes liquid-bubble-button {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.4);
+    opacity: 0.2;
+  }
+}
