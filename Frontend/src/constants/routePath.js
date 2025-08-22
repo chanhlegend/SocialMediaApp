@@ -3,4 +3,7 @@ export const ROUTE_PATH = {
   LOGIN: '/login',
   REGISTRATION: '/registration',
   OTPVERIFICATION: '/otpverification',
+
+  // Home
+  HOME: '/',
 };
