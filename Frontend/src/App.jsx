@@ -1,15 +1,43 @@
-import Button from '@mui/material/Button';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import ScrollToTop from "./ScrollToTop";
+import AppRoute from "./config/routes";
+import React, { Fragment } from "react";
+import ProtectedRoute from "./components/ProtectedRoute";
+import { Toaster } from "sonner";
 
 function App() {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-      <h1 className="text-3xl font-bold text-blue-600 mb-4">
-        Vite + React + Tailwind CSS + MUI
-      </h1>
-      <Button variant="contained">Hello from MUI</Button>
-    </div>
-  )
+    <BrowserRouter>
+      <ScrollToTop />
+      <Toaster position="top-right" richColors />
+      <Routes>
+        {AppRoute.map((route) => {
+          const Layout = route.layout || Fragment;
+          const Page = route.page;
+          const element = (
+            <Layout>
+              <Page />
+            </Layout>
+          );
+          return (
+            <Route
+              key={route.path}
+              path={route.path}
+              element={
+                route.allowedRoles ? (
+                  <ProtectedRoute allowedRoles={route.allowedRoles}>
+                    {element}
+                  </ProtectedRoute>
+                ) : (
+                  element
+                )
+              }
+            />
+          );
+        })}
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
-export default App
-
+export default App;

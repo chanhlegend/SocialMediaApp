@@ -4,17 +4,13 @@ const { Schema } = mongoose;
 const userSchema = new Schema({
     // --- Basic Information ---
     fullName: { type: String, required: true, trim: true },
-    username: { type: String, required: true, unique: true, trim: true, lowercase: true },
     email: { type: String, required: true, unique: true, trim: true, lowercase: true },
     password: { type: String, required: true },
-    
-    // --- Authentication & Security ---
-    googleId: { type: String },
-    facebookId: { type: String },
-    emailVerified: { type: Boolean, default: false },
-    emailVerificationToken: { type: String },
-    passwordResetToken: { type: String },
-    passwordResetExpires: { type: Date },
+    status: { type: String, enum: ['active', 'non-active', 'banned'], default: 'non-active' },
+
+    // --- OTP & Two-Factor Authentication ---
+    otp: { type: String },
+    otpExpires: { type: Date },
 
     // --- Roles & Permissions ---
     role: { 
