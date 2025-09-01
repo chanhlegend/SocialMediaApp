@@ -151,19 +151,20 @@ export default function AuthPage() {
     setIsLoading(true)
 
     if (isLogin) {
-      console.log("Login data:", { email: formData.email, password: formData.password })
       try {
         const response = await AuthenService.login({ 
           email: formData.email, 
           password: formData.password 
         })
-        console.log("Login response:", response)
-        
         if (response.success) {
           // Đăng nhập thành công
           toast.success("Đăng nhập thành công!")
-          // TODO: Lưu token, chuyển đến dashboard
-          console.log("Login successful, user:", response.data.user)
+          // Lưu token và chuyển đến trang chủ
+          localStorage.setItem("token", response.data.token)
+          // Chuyển hướng về trang chủ sau khi hiện toast
+          setTimeout(() => {
+            navigate("/")
+          }, 1500) // Delay 1.5 giây để người dùng thấy thông báo
         } else {
           // Kiểm tra nếu cần xác thực OTP
           if (response.requireOTP) {

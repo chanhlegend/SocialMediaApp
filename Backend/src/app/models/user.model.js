@@ -27,6 +27,10 @@ const userSchema = new Schema({
     // --- Activity Status ---
     isOnline: { type: Boolean, default: false },
     lastSeen: { type: Date },
+    lastLogin: { type: Date },
+
+    // --- JWT & Authentication ---
+    refreshToken: { type: String },
 
 }, { timestamps: true });
 

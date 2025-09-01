@@ -1,5 +1,7 @@
 const User = require("../models/user.model");
 const bcrypt = require("bcrypt");
+const jwtService = require("../services/jwtService");
+
 class authenController {
 
   async registerUser(req, res) {
@@ -161,17 +163,181 @@ class authenController {
         return res.status(403).json({ message: "Tài khoản đã bị khóa" });
       }
 
+      // Tạo JWT tokens
+      const tokenPayload = {
+        userId: user._id,
+        email: user.email,
+        role: user.role || 'user'
+      };
+
+      const tokens = jwtService.generateTokens(tokenPayload);
+
+      // Lưu refresh token vào database (optional - để có thể revoke)
+      await User.findByIdAndUpdate(user._id, {
+        refreshToken: tokens.refreshToken,
+        lastLogin: new Date()
+      });
+
       return res.status(200).json({ 
+        success: true,
         message: "Đăng nhập thành công",
-        user: {
-          id: user._id,
-          email: user.email,
-          fullName: user.fullName,
-          status: user.status
+        data: {
+          user: {
+            id: user._id,
+            email: user.email,
+            fullName: user.fullName,
+            status: user.status,
+            role: user.role || 'user'
+          },
+          tokens: {
+            accessToken: tokens.accessToken,
+            refreshToken: tokens.refreshToken
+          }
         }
       });
     } catch (error) {
-      return res.status(500).json({ message: "Server error", error });
+      console.error("Login error:", error);
+      return res.status(500).json({ 
+        message: "Server error", 
+        error: error.message,
+        stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
+      });
+    }
+  }
+
+  // Refresh access token
+  async refreshToken(req, res) {
+    try {
+      const { refreshToken } = req.body;
+
+      if (!refreshToken) {
+        return res.status(401).json({
+          success: false,
+          message: "Refresh token is required"
+        });
+      }
+
+      // Verify refresh token
+      const decoded = jwtService.verifyRefreshToken(refreshToken);
+      
+      // Tìm user và kiểm tra refresh token
+      const user = await User.findById(decoded.userId);
+      if (!user || user.refreshToken !== refreshToken) {
+        return res.status(401).json({
+          success: false,
+          message: "Invalid refresh token"
+        });
+      }
+
+      if (user.status !== 'active') {
+        return res.status(403).json({
+          success: false,
+          message: "Account is not active"
+        });
+      }
+
+      // Tạo access token mới
+      const tokenPayload = {
+        userId: user._id,
+        email: user.email,
+        role: user.role || 'user'
+      };
+
+      const newAccessToken = jwtService.generateAccessToken(tokenPayload);
+
+      return res.status(200).json({
+        success: true,
+        message: "Token refreshed successfully",
+        data: {
+          accessToken: newAccessToken
+        }
+      });
+
+    } catch (error) {
+      return res.status(401).json({
+        success: false,
+        message: "Invalid refresh token",
+        error: error.message
+      });
+    }
+  }
+
+  // Logout - invalidate refresh token
+  async logout(req, res) {
+    try {
+      const userId = req.user._id;
+
+      // Xóa refresh token khỏi database
+      await User.findByIdAndUpdate(userId, {
+        refreshToken: null
+      });
+
+      return res.status(200).json({
+        success: true,
+        message: "Đăng xuất thành công"
+      });
+
+    } catch (error) {
+      return res.status(500).json({
+        success: false,
+        message: "Server error",
+        error: error.message
+      });
+    }
+  }
+
+  // Get current user profile
+  async getProfile(req, res) {
+    try {
+      const user = req.user;
+
+      return res.status(200).json({
+        success: true,
+        data: {
+          user: {
+            id: user._id,
+            email: user.email,
+            fullName: user.fullName,
+            status: user.status,
+            role: user.role || 'user',
+            createdAt: user.createdAt,
+            updatedAt: user.updatedAt
+          }
+        }
+      });
+
+    } catch (error) {
+      return res.status(500).json({
+        success: false,
+        message: "Server error",
+        error: error.message
+      });
+    }
+  }
+
+  // Verify JWT token (for frontend to check if token is still valid)
+  async verifyToken(req, res) {
+    try {
+      // Nếu middleware auth pass thì token valid
+      return res.status(200).json({
+        success: true,
+        message: "Token is valid",
+        data: {
+          user: {
+            id: req.user._id,
+            email: req.user.email,
+            fullName: req.user.fullName,
+            role: req.user.role || 'user'
+          }
+        }
+      });
+
+    } catch (error) {
+      return res.status(500).json({
+        success: false,
+        message: "Server error",
+        error: error.message
+      });
     }
   }
 }

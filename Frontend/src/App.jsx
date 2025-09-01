@@ -2,7 +2,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ScrollToTop from "./ScrollToTop";
 import AppRoute from "./config/routes";
 import React, { Fragment } from "react";
-import ProtectedRoute from "./components/ProtectedRoute";
 import { Toaster } from "sonner";
 
 function App() {
@@ -23,15 +22,7 @@ function App() {
             <Route
               key={route.path}
               path={route.path}
-              element={
-                route.allowedRoles ? (
-                  <ProtectedRoute allowedRoles={route.allowedRoles}>
-                    {element}
-                  </ProtectedRoute>
-                ) : (
-                  element
-                )
-              }
+              element={element}
             />
           );
         })}

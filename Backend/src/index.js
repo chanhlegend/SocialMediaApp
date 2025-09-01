@@ -49,9 +49,14 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
-// Middleware
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+// Middleware với size limit lớn hơn cho file upload
+app.use(express.urlencoded({ 
+    extended: true, 
+    limit: '100mb' 
+}));
+app.use(express.json({ 
+    limit: '100mb' 
+}));
 app.use(methodOverride('_method'));
 app.use(morgan('combined'));
 
