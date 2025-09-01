@@ -1,9 +1,17 @@
+import { Link, useNavigate } from 'react-router-dom'
+
 const BottomNavigation = () => {
+    const navigate = useNavigate()
+
     return (
-        <nav className="fixed bottom-0 left-0 right-0 bg-white/20 backdrop-blur-xl border-t border-purple-200/30">
+        <nav className="fixed bottom-0 left-0 right-0 bg-white/80 backdrop-blur-xl border-t border-purple-200/30 z-[9999] shadow-lg">
             <div className="max-w-4xl mx-auto px-2 sm:px-4 py-2 sm:py-3">
                 <div className="flex items-center justify-around">
-                    <button className="p-2 sm:p-3 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 shadow-lg">
+                    {/* Home Button */}
+                    <button 
+                        onClick={() => navigate('/')}
+                        className="p-2 sm:p-3 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 shadow-lg hover:scale-105 transition-all duration-300"
+                    >
                         <svg className="w-5 sm:w-6 h-5 sm:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path
                                 strokeLinecap="round"
@@ -13,7 +21,12 @@ const BottomNavigation = () => {
                             />
                         </svg>
                     </button>
-                    <button className="p-2 sm:p-3 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 hover:from-purple-500 hover:to-pink-500 transition-all duration-300 shadow-lg">
+                    
+                    {/* Search Button */}
+                    <button 
+                        onClick={() => navigate('/search')}
+                        className="p-2 sm:p-3 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 hover:from-purple-500 hover:to-pink-500 transition-all duration-300 shadow-lg hover:scale-105"
+                    >
                         <svg className="w-5 sm:w-6 h-5 sm:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path
                                 strokeLinecap="round"
@@ -23,12 +36,22 @@ const BottomNavigation = () => {
                             />
                         </svg>
                     </button>
-                    <button className="p-2 sm:p-3 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 hover:from-purple-500 hover:to-pink-500 transition-all duration-300 shadow-lg">
+                    
+                    {/* Add Post Button */}
+                    <button 
+                        onClick={() => navigate('/uploadpost')}
+                        className="p-2 sm:p-3 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 hover:from-purple-500 hover:to-pink-500 transition-all duration-300 shadow-lg hover:scale-105"
+                    >
                         <svg className="w-5 sm:w-6 h-5 sm:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                         </svg>
                     </button>
-                    <button className="p-2 sm:p-3 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 hover:from-purple-500 hover:to-pink-500 transition-all duration-300 shadow-lg">
+                    
+                    {/* Notifications Button */}
+                    <button 
+                        onClick={() => navigate('/notifications')}
+                        className="p-2 sm:p-3 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 hover:from-purple-500 hover:to-pink-500 transition-all duration-300 shadow-lg hover:scale-105"
+                    >
                         <svg className="w-5 sm:w-6 h-5 sm:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path
                                 strokeLinecap="round"
@@ -38,7 +61,12 @@ const BottomNavigation = () => {
                             />
                         </svg>
                     </button>
-                    <button className="p-2 sm:p-3 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 hover:from-purple-500 hover:to-pink-500 transition-all duration-300 shadow-lg">
+                    
+                    {/* Profile Button */}
+                    <button 
+                        onClick={() => navigate('/profile')}
+                        className="p-2 sm:p-3 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 hover:from-purple-500 hover:to-pink-500 transition-all duration-300 shadow-lg hover:scale-105"
+                    >
                         <div className="w-5 sm:w-6 h-5 sm:h-6 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 p-0.5">
                             <img
                                 src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=24&h=24&fit=crop&crop=face"

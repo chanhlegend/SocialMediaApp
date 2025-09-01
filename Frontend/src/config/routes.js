@@ -7,6 +7,7 @@ import MainLayout from "../layouts/MainLayout";
 const AuthPage = React.lazy(() => import("../pages/AuthPage"));
 const OTPVerifiPage = React.lazy(() => import("../pages/OPTVerifiPage"));
 const HomePage = React.lazy(() => import("../pages/HomePage"));
+const PostUploadPage = React.lazy(() => import("../pages/PostUploadPage"));
 
 // Cấu hình route với layout
 const AppRoute = [
@@ -30,6 +31,13 @@ const AppRoute = [
     page: HomePage,
     layout: MainLayout 
   },
+
+  // Upload Post
+  {
+    path: ROUTE_PATH.UPLOADPOST,
+    page: PostUploadPage,
+    layout: MainLayout
+  }
 ];
 
 export default AppRoute;

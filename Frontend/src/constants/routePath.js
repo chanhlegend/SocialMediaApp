@@ -6,4 +6,5 @@ export const ROUTE_PATH = {
 
   // Home
   HOME: '/',
+  UPLOADPOST: '/uploadpost'
 };
