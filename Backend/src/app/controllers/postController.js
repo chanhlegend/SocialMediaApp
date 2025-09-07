@@ -22,9 +22,7 @@ class postController {
             // Upload file lên Cloudinary nếu có
             if (req.files && req.files.length > 0) {
                 try {
-                    console.log('Đang upload', req.files.length, 'file(s) lên Cloudinary...');
                     mediaArray = await cloudinaryService.uploadMultipleFiles(req.files);
-                    console.log('Upload thành công:', mediaArray.length, 'file(s)');
                 } catch (uploadError) {
                     console.error('Lỗi upload lên Cloudinary:', uploadError);
                     return res.status(500).json({

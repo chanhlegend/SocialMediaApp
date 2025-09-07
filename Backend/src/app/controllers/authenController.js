@@ -300,6 +300,19 @@ class authenController {
             fullName: user.fullName,
             status: user.status,
             role: user.role || 'user',
+            // Profile information
+            bio: user.bio,
+            dateOfBirth: user.dateOfBirth,
+            avatar: user.avatar,
+            coverPhoto: user.coverPhoto,
+            profilePrivacy: user.profilePrivacy,
+            blockedUsers: user.blockedUsers,
+            profileVisitors: user.profileVisitors,
+            theme: user.theme,
+            // Activity status
+            isOnline: user.isOnline,
+            lastSeen: user.lastSeen,
+            lastLogin: user.lastLogin,
             createdAt: user.createdAt,
             updatedAt: user.updatedAt
           }
