@@ -77,7 +77,6 @@ export const PostService = {
         });
       }
 
-      console.log('Đang gửi request tạo bài viết...');
       const response = await api.post('/', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',

@@ -19,8 +19,28 @@ const userSchema = new Schema({
         default: 'user' 
     },
 
+    // --- Profile Information (merged from Profile model) ---
+    bio: { type: String, maxlength: 250 },
+    dateOfBirth: { type: Date },
+    avatar: { type: String, default: 'default_avatar.png' },
+    coverPhoto: { type: String, default: 'default_cover.png' },
+    profilePrivacy: { 
+        type: String, 
+        enum: ['public', 'private'], 
+        default: 'public' 
+    },
+    blockedUsers: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+    profileVisitors: [{
+        user: { type: Schema.Types.ObjectId, ref: 'User' },
+        visitedAt: { type: Date, default: Date.now }
+    }],
+    // Premium feature for profile customization
+    theme: {
+        color: { type: String },
+        font: { type: String }
+    },
+
     // --- References to other models ---
-    profile: { type: Schema.Types.ObjectId, ref: 'Profile' },
     socialGraph: { type: Schema.Types.ObjectId, ref: 'SocialGraph' },
     premium: { type: Schema.Types.ObjectId, ref: 'Premium' },
 
